@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tela-Tela Madu Otak Otak Crispy</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff3cd;
+    margin: 0; padding: 0;
+  }
+  header {
+    background-color: #f8c471;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #5d4037;
+  }
+  .container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #d4af37;
+  }
+  h2 {
+    color: #4a148c;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  ul li {
+    background: #ffe082;
+    margin: 7px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+  }
+  input, select, button, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  button {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    border: none;
+  }
+  button:hover {
+    background-color: #1b5e20;
+  }
+  .success-message {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 5px;
+    display: none;
+  }
+  footer {
+    text-align: center;
+    padding: 15px;
+    background: #f8c471;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<header>
+Tela-Tela Madu Otak Otak Crispy
+</header>
+
+<div class="container">
+  <h2>Varian Rasa</h2>
+  <ul>
+    <li>Jagung Manis</li>
+    <li>Barbeque</li>
+    <li>Keju Manis</li>
+    <li>Balado Pedas Manis</li>
+    <li>Rumput Laut</li>
+    <li>Asin</li>
+  </ul>
+
+  <h2>Pesan Sekarang</h2>
+  <form id="orderForm">
+    <label for="name">Nama Lengkap</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="phone">Nomor HP</label>
+    <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}" placeholder="Contoh: 082137877005" />
+
+    <label for="flavor">Pilih Varian Rasa</label>
+    <select id="flavor" name="flavor" required>
+      <option value="">--Pilih--</option>
+      <option value="Jagung Manis">Jagung Manis</option>
+      <option value="Barbeque">Barbeque</option>
+      <option value="Keju Manis">Keju Manis</option>
+      <option value="Balado Pedas Manis">Balado Pedas Manis</option>
+      <option value="Rumput Laut">Rumput Laut</option>
+      <option value="Asin">Asin</option>
+    </select>
+
+    <label for="quantity">Jumlah Pesanan</label>
+    <input type="number" id="quantity" name="quantity" min="1" max="100" required />
+
+    <label for="address">Alamat Pengiriman</label>
+    <textarea id="address" name="address" rows="3" required></textarea>
+
+    <button type="submit">Kirim Pesanan</button>
+  </form>
+
+  <div class="success-message" id="successMessage">
+    Terima kasih! Pesanan Anda telah terkirim. Kami akan segera menghubungi Anda.
+  </div>
+</div>
+
+<footer>
+Hubungi kami: 0821 3787 7005 (Pre Order)
+</footer>
+
+<script>
+  const form = document.getElementById('orderForm');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const flavor = form.flavor.value;
+    const quantity = form.quantity.value;
+    const address = form.address.value.trim();
+
+    if (!name || !phone || !flavor || !quantity || !address) {
+      alert('Semua field harus diisi dengan lengkap!');
+      return;
+    }
+
+    const message = `Halo, saya ingin memesan Tela-Tela Madu Otak Otak Crispy\n` +
+      `Nama: ${name}\n` +
+      `Nomor HP: ${phone}\n` +
+      `Varian Rasa: ${flavor}\n` +
+      `Jumlah: ${quantity}\n` +
+      `Alamat: ${address}`;
+
+    // Nomor WA dalam format internasional tanpa tanda +
+    const waNumber = '6282137877005'; 
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(waUrl, '_blank');
+
+    successMessage.style.display = 'block';
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
